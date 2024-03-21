@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render
 
 from . import util
+from .forms import CreateNewPageForm
+
 import markdown2
 
 
@@ -42,4 +44,27 @@ def search(request):
             "query": query
         })
         
+def new_page(request):
+    if request.method == "POST":
+        form = CreateNewPageForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["text_input"]
+            content = form.cleaned_data["textarea_input"]
+            print(title)
+            for entry in util.list_entries():
+                if title.lower() == entry.lower():
+                    return render(request, "encyclopedia/file_already_exists.html")
+            
+            util.save_entry(title, content)
+            return redirect('wiki:entry_page', title=title)
+
+        else:
+            #work on this later
+            return 1
+
+    else:
+        form = CreateNewPageForm()
+    return render(request, "encyclopedia/new_page.html", {
+        "form": form
+    })
         

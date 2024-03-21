@@ -1,9 +1,16 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Results Not Found
+    Create New Page
 {% endblock %}
 
 {% block body %}
-    <h1 style="color: red;">No results for: "{{ query }}"</h1>
+    <h1>Create New Page</h1>
+
+    <form method="post" action="{% url 'wiki:new_page' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <input type="submit" value="Save">
+    </form>
 {% endblock %}
