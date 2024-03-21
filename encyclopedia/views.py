@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from random import choice
 
 from . import util
 from .forms import CreateNewPageForm, EditPageForm
@@ -75,7 +76,7 @@ def edit_page(request, title):
             content = form.cleaned_data["textarea_input"]
 
             util.save_entry(title, content)
-            return redirect('wiki:entry_page', title=title)
+            return redirect("wiki:entry_page", title=title)
     
     content = util.get_entry(title)
     if not content:
@@ -86,3 +87,9 @@ def edit_page(request, title):
             "title": title,
             "form": form
         })
+
+def random_page(request):
+    entries = util.list_entries()
+
+    random_entry = choice(entries)
+    return redirect("wiki:entry_page", title=random_entry)
