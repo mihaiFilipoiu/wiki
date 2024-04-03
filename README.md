@@ -1,4 +1,4 @@
-Video: https://www.youtube.com/watch?v=zF_RWvt8zUI&ab_channel=MihaiF
+Deployed on PythonAnywhere (`pythonanywhere.com`): https://mihaiphilip.pythonanywhere.com/ 
 
 # 📚 Wiki Encyclopedia App (academic project)
 
